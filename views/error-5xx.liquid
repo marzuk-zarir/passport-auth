@@ -1,0 +1,7 @@
+{% layout 'main.liquid' %}
+
+<div class="text-center">
+    <h4>{{ error | escape }}</h4>
+    <p>{{ error.stack | escape }}</p>
+    <a href="/">Back to home</a>
+</div>

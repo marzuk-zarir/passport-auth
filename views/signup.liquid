@@ -1,0 +1,112 @@
+{% layout 'main.liquid' %}
+
+<div class="mx-auto" style="max-width: 550px">
+    <form action="/auth/signup" method="post">
+        <h1 class="h2 fw-normal mb-5 text-center">Create a new account</h1>
+        <div class="row mb-4">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input
+                    type="email"
+                    class="form-control {% if errors.email %} is-invalid {% endif %}"
+                    id="email"
+                    name="email"
+                    value="{{ values.email | default: '' }}"
+                    placeholder="example@example.com"
+                />
+                <div class="invalid-feedback">
+                    {{ errors.email | default: '' | prepend: '*' }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="password" class="col-sm-2 col-form-label"
+                >Password</label
+            >
+            <div class="col-sm-10">
+                <input
+                    type="password"
+                    class="form-control {% if errors.password %} is-invalid {% endif %}"
+                    id="password"
+                    name="password"
+                    value="{{ values.password | default: '' }}"
+                    placeholder="At least 8 characters"
+                />
+                <div class="invalid-feedback">
+                    {{ errors.password | default: '' | prepend: '*' }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="confirm-password" class="col-sm-2 col-form-label"
+                >Confirm Password</label
+            >
+            <div class="col-sm-10">
+                <input
+                    type="password"
+                    class="form-control {% if errors['confirm-password'] %} is-invalid {% endif %}"
+                    id="confirm-password"
+                    name="confirm-password"
+                    placeholder="Retype password"
+                />
+                <div class="invalid-feedback">
+                    {{
+                        errors['confirm-password'] | default: '' | prepend: '*'
+                    }}
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-sm-10 offset-sm-2">
+                <div class="form-check">
+                    <input
+                        class="form-check-input {% if errors.terms %} is-invalid {% endif %}"
+                        type="checkbox"
+                        id="terms"
+                        name="terms"
+                        {%
+                        if
+                        values.terms
+                        %}
+                        checked
+                        {%
+                        endif
+                        %}
+                    />
+                    <label class="form-check-label" for="terms">
+                        Agree to terms & conditions
+                    </label>
+                    <div class="invalid-feedback">
+                        {{ errors.terms | default: '' | prepend: '*' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input
+            type="submit"
+            class="btn btn-success w-100"
+            value="Create account"
+        />
+
+        <p class="my-4 text-secondary text-center">Or sign in with</p>
+
+        <div class="row mb-4 justify-content-end">
+            <div class="d-flex flex-column align-items-center">
+                <a href="/auth/oauth/google" class="btn btn-danger w-100"
+                    ><i class="bi bi-google"></i> Login with Google</a
+                >
+                <a
+                    href="/auth/oauth/facebook"
+                    class="btn btn-primary w-100 my-2"
+                    ><i class="bi bi-facebook"></i> Login with Facebook</a
+                >
+                <a href="/auth/oauth/twitter" class="btn btn-info w-100"
+                    ><i class="bi bi-twitter"></i> Login with Twitter</a
+                >
+            </div>
+        </div>
+        <p class="text-secondary text-center">
+            <a href="/auth/login">Already have an account? Login here</a>
+        </p>
+    </form>
+</div>
