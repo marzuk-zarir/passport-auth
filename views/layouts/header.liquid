@@ -20,7 +20,7 @@
                     <a class="nav-link active" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
+                    <a class="nav-link" href="/user/profile">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/manage-user"
@@ -28,10 +28,55 @@
                     >
                 </li>
             </ul>
+            {% if user %}
+            <div class="d-flex align-items-center">
+                <img
+                    src="{{
+                        user.avatar
+                            | dafault
+                                : 'https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/anonymous-512.png'
+                    }}"
+                    class="img-fluid rounded-circle"
+                    style="width: 36px; height: auto"
+                    alt="{{ user.username | default: 'Default avatar' }}"
+                />
+                <h6 class="text-light mb-0 ms-2 me-3">
+                    {{ user.username | split: ' ' | first }}
+                </h6>
+                <button
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#logout-modal"
+                >
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </div>
+            <div class="modal fade" id="logout-modal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body pb-0">
+                            <p class="lead">Are you sure want to logout?</p>
+                        </div>
+                        <div class="modal-footer border-0 p-2">
+                            <button
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <a href="/auth/logout" class="btn btn-danger">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
             <div class="d-flex">
                 <a class="btn btn-warning me-2" href="/auth/login">Login</a>
                 <a class="btn btn-info" href="/auth/signup">Signup</a>
             </div>
+            {% endif %}
         </div>
     </div>
 </nav>

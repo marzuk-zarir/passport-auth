@@ -10,7 +10,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "bcrypt": "^5.0.1",
+        "bcrypt": "^5.0.0",
         "connect-ensure-login": "^0.1.1",
         "connect-flash": "^0.1.1",
         "connect-mongo": "^4.6.0",
@@ -21,7 +21,10 @@
         "liquidjs": "^9.32.1",
         "mongoose": "^6.1.6",
         "passport": "^0.5.2",
-        "passport-local": "^1.0.0"
+        "passport-facebook": "^3.0.0",
+        "passport-google-oauth20": "^2.0.0",
+        "passport-local": "^1.0.0",
+        "passport-twitter": "^0.1.5"
     },
     "devDependencies": {
         "dotenv": "^11.0.0",

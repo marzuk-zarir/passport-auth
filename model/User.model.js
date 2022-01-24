@@ -1,9 +1,20 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const { roles } = require('../utils/roles')
+const createHttpError = require('http-errors')
 
 const userSchema = new Schema(
     {
+        googleId: {
+            type: String,
+            unique: true
+        },
+        username: {
+            type: String,
+            minlength: 4,
+            maxlength: 12,
+            required: true
+        },
         email: {
             type: String,
             unique: true,
@@ -13,8 +24,7 @@ const userSchema = new Schema(
         password: {
             type: String,
             minlength: 8,
-            maxlength: 20,
-            required: true
+            maxlength: 20
         },
         avatar: {
             type: String
@@ -32,11 +42,21 @@ const userSchema = new Schema(
 
 userSchema.pre('save', async function (next) {
     try {
-        this.password = await bcrypt.hash(this.password, 10)
+        if (this.password) {
+            this.password = await bcrypt.hash(this.password, 10)
+        }
         next()
     } catch (error) {
         next(error)
     }
 })
+
+userSchema.methods.isMatchPassword = async function (password) {
+    try {
+        return await bcrypt.compare(password, this.password)
+    } catch (error) {
+        throw createHttpError.InternalServerError(error.message)
+    }
+}
 
 module.exports = model('user', userSchema)

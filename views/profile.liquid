@@ -1,0 +1,90 @@
+{% layout 'main.liquid' %}
+
+<div class="card card-body mx-auto" style="max-width: 700px">
+    <div class="text-center">
+        <img
+            src="{{
+                user.avatar
+                    | default
+                        : 'https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/anonymous-512.png'
+            }}"
+            alt="{{ user.username | default: 'Default avatar' }}"
+            style="width: 176px; height: auto"
+            class="img-fluid rounded-circle"
+        />
+    </div>
+    <div class="row mt-5">
+        <div class="col-3">
+            <h5>ID</h5>
+        </div>
+        <div class="col-9">
+            <p class="lead">{{ user.id }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <h5>Username</h5>
+        </div>
+        <div class="col-9">
+            <p class="lead">{{ user.username }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <h5>Email Address</h5>
+        </div>
+        <div class="col-9">
+            <p class="lead">{{ user.email }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <h5>Role</h5>
+        </div>
+        <div class="col-9">
+            <p class="lead">{{ user.role | downcase }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <h5>Registered At</h5>
+        </div>
+        <div class="col-9">
+            <p class="lead">{{ user.createdAt | date: '%B %d, %Y' }}</p>
+        </div>
+    </div>
+    <div class="mt-4">
+        <button
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#delete-modal"
+        >
+            Delete Account
+        </button>
+        <div class="modal fade" id="delete-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body pb-0">
+                        <p class="text-danger">
+                            Your information will be delete permanently. Are you
+                            sure want to delete your account?
+                        </p>
+                    </div>
+                    <div class="modal-footer border-0 p-2">
+                        <button
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Cancel
+                        </button>
+                        <a
+                            href="/user/account/delete?id={{ user.id }}"
+                            class="btn btn-danger"
+                            >YES, I'm sure</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
